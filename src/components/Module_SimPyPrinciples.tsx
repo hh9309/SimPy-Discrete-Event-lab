@@ -190,7 +190,7 @@ else:
         {/* Section Navigation Tabs */}
         <div className="flex items-center gap-1 bg-slate-100 p-1 rounded-lg text-xs overflow-x-auto">
           {[
-            { id: 'architecture', label: '核心架构框架图' },
+            { id: 'architecture', label: '调度中枢与架构原理' },
             { id: 'concepts', label: '离散代数原理' },
             { id: 'functions', label: '核心函数库速查' },
             { id: 'lifecycle', label: '协程生命周期' },
@@ -219,13 +219,13 @@ else:
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 border-b border-slate-200/80 pb-4">
               <div>
                 <span className="text-[10px] font-mono font-semibold text-blue-700 bg-blue-50 px-2 py-0.5 rounded border border-blue-200">
-                  SimPy System Architecture Blueprint
+                  SimPy System Architecture & Dispatch Engine
                 </span>
                 <h3 className="text-lg font-bold text-slate-900 tracking-tight mt-1">
-                  SimPy 离散事件系统内核架构与二叉堆调度蓝图
+                  SimPy 离散事件系统内核架构与二叉堆调度机理
                 </h3>
                 <p className="text-xs text-slate-600 mt-0.5">
-                  以事件优先队列二叉堆为枢纽，贯通主动实体进程协程（Process / Generator）与被动资源队列（Resource / Container）。
+                  以优先队列二叉最小堆为调度中枢，解耦主动实体协程（Process / Generator）与被动资源队列（Resource / Container）。
                 </p>
               </div>
 
@@ -234,32 +234,107 @@ else:
                   三元组: <strong>(t_i, prio, event_id)</strong>
                 </span>
                 <span className="px-2.5 py-1 bg-emerald-50 text-emerald-800 rounded-lg border border-emerald-200 font-bold shadow-2xs">
-                  复杂度: <strong>O(log N)</strong>
+                  堆推进: <strong>O(log N)</strong>
                 </span>
               </div>
             </div>
 
-            {/* High-Resolution Blueprint Illustration Container */}
-            <div className="w-full bg-slate-900 rounded-xl overflow-hidden border border-slate-800 shadow-xl relative group">
-              <img
-                src="/src/assets/images/simpy_architecture_blueprint_1791027102177.jpg"
-                alt="SimPy Discrete-Event Architecture Blueprint"
-                referrerPolicy="no-referrer"
-                className="w-full max-h-[380px] object-cover sm:object-contain bg-slate-950 transition-transform duration-700 group-hover:scale-[1.02]"
-              />
-              <div className="p-3 bg-slate-900/90 backdrop-blur-xs border-t border-slate-800 text-xs text-slate-300 flex flex-col sm:flex-row items-center justify-between gap-2 font-mono">
-                <span className="flex items-center gap-1.5 text-amber-300 font-semibold">
-                  <Network className="w-4 h-4" />
-                  <span>调度中枢：Binary Min-Heap Priority Queue ➔ Event Callback Pipeline</span>
+            {/* Semantic Technical Architecture Pipeline Flow (轻量、结构化矢量排版替代位图) */}
+            <div className="bg-white rounded-xl border border-slate-200 p-5 space-y-4 shadow-xs">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-3">
+                <div className="flex items-center gap-2">
+                  <Network className="w-4 h-4 text-blue-600" />
+                  <span className="text-xs font-bold text-slate-900">
+                    离散事件驱动引擎内核调度管线 (DES Event-Driven Engine Pipeline)
+                  </span>
+                </div>
+                <span className="text-[11px] font-mono text-slate-500">
+                  Python PEP 342 增强型生成器协程与 heapq 二叉最小堆闭环
                 </span>
-                <span className="text-slate-400 text-[11px]">
-                  基于 Python PEP 342 增强型生成器协程驱动
-                </span>
+              </div>
+
+              {/* 4-Step Interactive / Structured Flow Pipeline */}
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-3 relative">
+                {/* Step 1: Active Process Coroutine */}
+                <div className="p-3.5 rounded-xl bg-slate-50/90 border border-slate-200/90 hover:border-blue-300 transition-colors space-y-2">
+                  <div className="flex items-center justify-between text-xs">
+                    <span className="font-bold text-slate-900 flex items-center gap-1.5">
+                      <span className="w-4 h-4 rounded-full bg-blue-100 text-blue-700 text-[10px] font-mono font-bold flex items-center justify-center">1</span>
+                      主动实体进程
+                    </span>
+                    <span className="text-[10px] font-mono text-blue-700 bg-blue-50 px-1.5 py-0.5 rounded border border-blue-200">Process</span>
+                  </div>
+                  <div className="font-mono text-[11px] bg-white p-2 rounded border border-slate-200 text-slate-800">
+                    yield env.timeout(d)
+                    <br />
+                    yield res.request()
+                  </div>
+                  <p className="text-[11px] text-slate-600 leading-relaxed">
+                    顾客/工件由 Python 生成器驱动；申请资源或延时时通过 <code className="font-mono text-slate-900 font-semibold">yield</code> 挂起自身，出让 CPU 运行权。
+                  </p>
+                </div>
+
+                {/* Step 2: Binary Min-Heap Priority Queue */}
+                <div className="p-3.5 rounded-xl bg-emerald-50/60 border border-emerald-200/90 hover:border-emerald-400 transition-colors space-y-2">
+                  <div className="flex items-center justify-between text-xs">
+                    <span className="font-bold text-slate-900 flex items-center gap-1.5">
+                      <span className="w-4 h-4 rounded-full bg-emerald-100 text-emerald-700 text-[10px] font-mono font-bold flex items-center justify-center">2</span>
+                      调度中枢二叉堆
+                    </span>
+                    <span className="text-[10px] font-mono text-emerald-800 bg-emerald-100/80 px-1.5 py-0.5 rounded border border-emerald-300">heapq</span>
+                  </div>
+                  <div className="font-mono text-[11px] bg-white p-2 rounded border border-emerald-200 text-slate-800">
+                    Key = (t_i, prio, id)
+                    <br />
+                    Δt_jump = min(t_e) - now
+                  </div>
+                  <p className="text-[11px] text-slate-600 leading-relaxed">
+                    <code className="font-mono text-slate-900 font-semibold">env.run()</code> 弹出堆顶最早发生事件，虚拟时钟瞬移推进，每步仅需 <code className="font-mono text-emerald-800 font-semibold">O(log N)</code> 调整。
+                  </p>
+                </div>
+
+                {/* Step 3: Event Callback Pipeline */}
+                <div className="p-3.5 rounded-xl bg-amber-50/60 border border-amber-200/90 hover:border-amber-400 transition-colors space-y-2">
+                  <div className="flex items-center justify-between text-xs">
+                    <span className="font-bold text-slate-900 flex items-center gap-1.5">
+                      <span className="w-4 h-4 rounded-full bg-amber-100 text-amber-700 text-[10px] font-mono font-bold flex items-center justify-center">3</span>
+                      回调分发管道
+                    </span>
+                    <span className="text-[10px] font-mono text-amber-800 bg-amber-100/80 px-1.5 py-0.5 rounded border border-amber-300">Callbacks</span>
+                  </div>
+                  <div className="font-mono text-[11px] bg-white p-2 rounded border border-amber-200 text-slate-800">
+                    for cb in e.callbacks:
+                    <br />
+                    &nbsp;&nbsp;proc._resume(e.val)
+                  </div>
+                  <p className="text-[11px] text-slate-600 leading-relaxed">
+                    事件到达物理时间触发后，依次派发回调，通过生成器 <code className="font-mono text-slate-900 font-semibold">.send()</code> 或 <code className="font-mono text-slate-900 font-semibold">.throw()</code> 唤醒挂起进程。
+                  </p>
+                </div>
+
+                {/* Step 4: Passive Resource Pool */}
+                <div className="p-3.5 rounded-xl bg-purple-50/60 border border-purple-200/90 hover:border-purple-400 transition-colors space-y-2">
+                  <div className="flex items-center justify-between text-xs">
+                    <span className="font-bold text-slate-900 flex items-center gap-1.5">
+                      <span className="w-4 h-4 rounded-full bg-purple-100 text-purple-700 text-[10px] font-mono font-bold flex items-center justify-center">4</span>
+                      被动资源互锁池
+                    </span>
+                    <span className="text-[10px] font-mono text-purple-800 bg-purple-100/80 px-1.5 py-0.5 rounded border border-purple-300">Resource</span>
+                  </div>
+                  <div className="font-mono text-[11px] bg-white p-2 rounded border border-purple-200 text-slate-800">
+                    users ≤ capacity (c)
+                    <br />
+                    queue: FIFO / Preempt
+                  </div>
+                  <p className="text-[11px] text-slate-600 leading-relaxed">
+                    维护服务台占用槽位与等待队列；释放时自动触发队首请求；抢占资源支持中断被抢占任务并恢复剩余时长。
+                  </p>
+                </div>
               </div>
             </div>
 
-            {/* 4 Deep Structural Analysis Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 pt-2">
+            {/* 4 精炼核心理论解析卡片 */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 pt-1">
               {/* Card 1: Key tuple */}
               <div className="p-4 bg-white rounded-xl border border-slate-200 space-y-2">
                 <div className="flex items-center justify-between text-xs">
@@ -270,7 +345,7 @@ else:
                   Key = (t_i, prio, id)
                 </div>
                 <p className="text-[11px] text-slate-600 leading-relaxed">
-                  二叉堆首选物理时间戳 $t_i$，相同时间按优先级 $prio$ 出队，同优先级按自增 $id$ 保证严格因果先来先服务（FIFO）。
+                  二叉堆首选物理时间戳 $t_i$，相同时间按优先级 $prio$ 出队，同优先级按自增 $id$ 保证严格因果先来先服务（FIFO）与不可比较对象防崩溃。
                 </p>
               </div>
 
@@ -284,7 +359,7 @@ else:
                   Δt_jump = min(t_e) - now
                 </div>
                 <p className="text-[11px] text-slate-600 leading-relaxed">
-                  无论两次业务间隔数秒还是数小时，仿真时钟直接瞬移到堆顶时刻，每步仅需 O(log N) 堆调整，规避微步长空转。
+                  无论两次业务间隔数秒还是数小时，仿真时钟直接瞬移到堆顶时刻，每步仅需 O(log N) 堆调整，彻底规避固定时间微步长算力空转。
                 </p>
               </div>
 
@@ -298,7 +373,7 @@ else:
                   yield req ➔ yield timeout
                 </div>
                 <p className="text-[11px] text-slate-600 leading-relaxed">
-                  实体进程在申请资源或等待时，通过 <code className="font-mono">yield</code> 将生成器句柄登记至事件回调，释放执行权等待唤醒。
+                  实体进程在申请资源或等待时，通过 <code className="font-mono">yield</code> 将生成器句柄登记至事件回调，释放执行权等待内核唤醒。
                 </p>
               </div>
 
