@@ -14,10 +14,12 @@ import {
   Clock,
   Shuffle,
   ShieldAlert,
+  Network,
+  Activity,
 } from 'lucide-react';
 
 export const Module_SimPyPrinciples: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<'concepts' | 'functions' | 'lifecycle' | 'patterns'>('concepts');
+  const [activeTab, setActiveTab] = useState<'architecture' | 'concepts' | 'functions' | 'lifecycle' | 'patterns'>('architecture');
   const [selectedFunc, setSelectedFunc] = useState<string>('env_timeout');
   const [copiedCode, setCopiedCode] = useState<boolean>(false);
 
@@ -186,8 +188,9 @@ else:
         </div>
 
         {/* Section Navigation Tabs */}
-        <div className="flex items-center gap-1 bg-slate-100 p-1 rounded-lg text-xs">
+        <div className="flex items-center gap-1 bg-slate-100 p-1 rounded-lg text-xs overflow-x-auto">
           {[
+            { id: 'architecture', label: '核心架构框架图' },
             { id: 'concepts', label: '离散代数原理' },
             { id: 'functions', label: '核心函数库速查' },
             { id: 'lifecycle', label: '协程生命周期' },
@@ -196,7 +199,7 @@ else:
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id as any)}
-              className={`px-3 py-1.5 rounded-md font-medium transition-all ${
+              className={`px-3 py-1.5 rounded-md font-medium transition-all whitespace-nowrap ${
                 activeTab === tab.id
                   ? 'bg-white text-slate-900 font-semibold shadow-xs'
                   : 'text-slate-600 hover:text-slate-900'
@@ -207,6 +210,115 @@ else:
           ))}
         </div>
       </div>
+
+      {/* Tab 0: Architecture Framework Blueprint Module (Requested by user: 将架构框架图放到知识导引切片 作为一个单独模块) */}
+      {activeTab === 'architecture' && (
+        <div className="space-y-6">
+          {/* Main Blueprint Showcase Card */}
+          <div className="p-6 bg-slate-50/80 rounded-2xl border border-slate-200/90 space-y-5">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 border-b border-slate-200/80 pb-4">
+              <div>
+                <span className="text-[10px] font-mono font-semibold text-blue-700 bg-blue-50 px-2 py-0.5 rounded border border-blue-200">
+                  SimPy System Architecture Blueprint
+                </span>
+                <h3 className="text-lg font-bold text-slate-900 tracking-tight mt-1">
+                  SimPy 离散事件系统内核架构与二叉堆调度蓝图
+                </h3>
+                <p className="text-xs text-slate-600 mt-0.5">
+                  以事件优先队列二叉堆为枢纽，贯通主动实体进程协程（Process / Generator）与被动资源队列（Resource / Container）。
+                </p>
+              </div>
+
+              <div className="flex items-center gap-2 text-xs font-mono shrink-0">
+                <span className="px-2.5 py-1 bg-white rounded-lg border border-slate-200 text-slate-700 shadow-2xs">
+                  三元组: <strong>(t_i, prio, event_id)</strong>
+                </span>
+                <span className="px-2.5 py-1 bg-emerald-50 text-emerald-800 rounded-lg border border-emerald-200 font-bold shadow-2xs">
+                  复杂度: <strong>O(log N)</strong>
+                </span>
+              </div>
+            </div>
+
+            {/* High-Resolution Blueprint Illustration Container */}
+            <div className="w-full bg-slate-900 rounded-xl overflow-hidden border border-slate-800 shadow-xl relative group">
+              <img
+                src="/src/assets/images/simpy_architecture_blueprint_1791027102177.jpg"
+                alt="SimPy Discrete-Event Architecture Blueprint"
+                referrerPolicy="no-referrer"
+                className="w-full max-h-[380px] object-cover sm:object-contain bg-slate-950 transition-transform duration-700 group-hover:scale-[1.02]"
+              />
+              <div className="p-3 bg-slate-900/90 backdrop-blur-xs border-t border-slate-800 text-xs text-slate-300 flex flex-col sm:flex-row items-center justify-between gap-2 font-mono">
+                <span className="flex items-center gap-1.5 text-amber-300 font-semibold">
+                  <Network className="w-4 h-4" />
+                  <span>调度中枢：Binary Min-Heap Priority Queue ➔ Event Callback Pipeline</span>
+                </span>
+                <span className="text-slate-400 text-[11px]">
+                  基于 Python PEP 342 增强型生成器协程驱动
+                </span>
+              </div>
+            </div>
+
+            {/* 4 Deep Structural Analysis Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 pt-2">
+              {/* Card 1: Key tuple */}
+              <div className="p-4 bg-white rounded-xl border border-slate-200 space-y-2">
+                <div className="flex items-center justify-between text-xs">
+                  <span className="font-bold text-slate-900">1. 事件三元组排序键</span>
+                  <span className="font-mono text-[10px] text-blue-600 bg-blue-50 px-1 rounded">Key(e)</span>
+                </div>
+                <div className="font-mono text-[11px] bg-slate-50 p-2 rounded border border-slate-100 text-slate-800">
+                  Key = (t_i, prio, id)
+                </div>
+                <p className="text-[11px] text-slate-600 leading-relaxed">
+                  二叉堆首选物理时间戳 $t_i$，相同时间按优先级 $prio$ 出队，同优先级按自增 $id$ 保证严格因果先来先服务（FIFO）。
+                </p>
+              </div>
+
+              {/* Card 2: O(log N) */}
+              <div className="p-4 bg-white rounded-xl border border-slate-200 space-y-2">
+                <div className="flex items-center justify-between text-xs">
+                  <span className="font-bold text-slate-900">2. 时钟跳跃复杂度</span>
+                  <span className="font-mono text-[10px] text-emerald-600 bg-emerald-50 px-1 rounded">O(log N)</span>
+                </div>
+                <div className="font-mono text-[11px] bg-slate-50 p-2 rounded border border-slate-100 text-slate-800">
+                  Δt_jump = min(t_e) - now
+                </div>
+                <p className="text-[11px] text-slate-600 leading-relaxed">
+                  无论两次业务间隔数秒还是数小时，仿真时钟直接瞬移到堆顶时刻，每步仅需 O(log N) 堆调整，规避微步长空转。
+                </p>
+              </div>
+
+              {/* Card 3: Yield loop */}
+              <div className="p-4 bg-white rounded-xl border border-slate-200 space-y-2">
+                <div className="flex items-center justify-between text-xs">
+                  <span className="font-bold text-slate-900">3. 协程 yield 挂起环</span>
+                  <span className="font-mono text-[10px] text-amber-600 bg-amber-50 px-1 rounded">Generator</span>
+                </div>
+                <div className="font-mono text-[11px] bg-slate-50 p-2 rounded border border-slate-100 text-slate-800">
+                  yield req ➔ yield timeout
+                </div>
+                <p className="text-[11px] text-slate-600 leading-relaxed">
+                  实体进程在申请资源或等待时，通过 <code className="font-mono">yield</code> 将生成器句柄登记至事件回调，释放执行权等待唤醒。
+                </p>
+              </div>
+
+              {/* Card 4: Resource interlock */}
+              <div className="p-4 bg-white rounded-xl border border-slate-200 space-y-2">
+                <div className="flex items-center justify-between text-xs">
+                  <span className="font-bold text-slate-900">4. 资源并发互锁管线</span>
+                  <span className="font-mono text-[10px] text-purple-600 bg-purple-50 px-1 rounded">Resource</span>
+                </div>
+                <div className="font-mono text-[11px] bg-slate-50 p-2 rounded border border-slate-100 text-slate-800">
+                  Users ≤ c | Queue &gt; 0
+                </div>
+                <p className="text-[11px] text-slate-600 leading-relaxed">
+                  资源维护槽位占用、排队队列与抢占堆栈，支持被抢占任务中断（Interrupt）并精确恢复剩余服务时长。
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Tab 1: Concepts & Mathematical Principles */}
       {activeTab === 'concepts' && (

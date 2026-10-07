@@ -108,7 +108,7 @@ export default function App() {
       <main className="flex-1 max-w-[1440px] w-full mx-auto px-4 sm:px-6 py-6 space-y-6">
         {/* Hero Section Banner */}
         <section className="bg-white rounded-2xl border border-slate-200/80 p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-6 shadow-xs">
-          <div className="space-y-2 max-w-2xl">
+          <div className="space-y-2 max-w-3xl">
             <div className="flex items-center gap-2 text-xs text-slate-500 font-medium">
               <span>离散事件系统建模</span>
               <span>·</span>
@@ -124,18 +124,10 @@ export default function App() {
             </p>
           </div>
 
-          {/* Blueprint Diagram Card */}
-          <div className="w-full md:w-72 shrink-0 bg-slate-50 rounded-xl border border-slate-200 overflow-hidden relative group">
-            <img
-              src="/src/assets/images/simpy_architecture_blueprint_1791027102177.jpg"
-              alt="SimPy Discrete-Event Architecture Blueprint"
-              referrerPolicy="no-referrer"
-              className="w-full h-36 object-cover transition-transform duration-500 group-hover:scale-105"
-            />
-            <div className="p-2.5 text-[11px] font-mono text-slate-600 bg-white/95 border-t border-slate-200 flex justify-between items-center">
-              <span>架构: (t_i, prio, event_id)</span>
-              <span className="text-emerald-700 font-semibold">O(log N)</span>
-            </div>
+          <div className="flex items-center gap-2 text-xs text-slate-500 shrink-0">
+            <span className="px-3 py-1.5 bg-slate-100 rounded-lg font-mono text-[11px] border border-slate-200">
+              内核: SimPy 4.0 / Python 3.10+
+            </span>
           </div>
         </section>
 
